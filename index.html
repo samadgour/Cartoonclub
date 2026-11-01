@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Cartoonclub: animated movie catalogue</title>
+<title>Cartoon movies club</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
 <script>try{var p=JSON.parse(localStorage.getItem("tc_prefs")||"{}"),r=document.documentElement;r.dataset.mode=p.mode||"auto";if(p.calm)r.dataset.calm="1"}catch(e){}</script>
@@ -75,22 +75,39 @@ header .wlb{margin-left:auto;display:flex;align-items:center;gap:8px;padding:9px
 @media (max-width:560px){.grid{grid-template-columns:1fr 1fr}.cw.big{grid-row:auto}.big .art{aspect-ratio:16/10}.sheet{grid-template-columns:1fr}.sheet .art{aspect-ratio:16/10;max-height:200px}}
 :root[data-calm] *,:root[data-calm] *::before,:root[data-calm] *::after{animation:none!important;transition:none!important}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+header{flex-wrap:wrap}header .dxb{margin-left:auto;display:flex;align-items:center;gap:6px;padding:9px 14px;font-size:14px}header .dxb+.wlb{margin-left:0}
+.dx .art img,.dxart img{object-fit:contain;padding:10px;box-sizing:border-box}
+.stat{display:grid;grid-template-columns:78px 30px 1fr;gap:8px;align-items:center;font-size:13px;margin-bottom:6px}.stat span{color:var(--muted)}
+.bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;border-radius:99px;background:var(--accent)}
+.pb{width:1em;height:1em;flex:none;vertical-align:-.12em;will-change:transform;backface-visibility:hidden;transition:transform .25s}.dxb:hover .pb{animation:none;transform:rotate(-18deg) scale(1.1)}
+@keyframes pbwob{0%,55%,100%{transform:rotate(0)}8%{transform:rotate(-24deg)}18%{transform:rotate(20deg)}28%{transform:rotate(-14deg)}38%{transform:rotate(10deg)}48%{transform:rotate(-4deg)}}
+@keyframes pbhop{0%,100%{transform:translate3d(0,0,0) rotate(0)}12%{transform:translate3d(0,-.28em,0) rotate(-12deg)}24%{transform:translate3d(0,0,0) rotate(0)}34%{transform:translate3d(0,-.12em,0) rotate(8deg)}44%{transform:translate3d(0,0,0) rotate(0)}}
+.pb{animation:pbwob 3.6s ease-in-out infinite}.hero .pb{animation:pbhop 2.8s ease-in-out infinite}header .pb{width:18px;height:18px}.hero .pb{margin-right:8px}
+.dn{grid-column:1/-1;margin:0 0 2px}
+.hb{display:flex;align-items:center;gap:8px;margin-left:auto}.hb .btn{margin:0}
+@media (max-width:560px){.hb{flex:1 1 100%;margin-left:0}.hb .btn{flex:1;justify-content:center}}
 </style></head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><radialGradient id="pbS" cx=".35" cy=".3" r=".85"><stop offset="0" stop-color="#fff" stop-opacity=".5"/><stop offset=".4" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></radialGradient><radialGradient id="pbB" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#c9cee3"/></radialGradient><radialGradient id="pbH"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs></svg>
 <div class="scrim" id="scrim"></div><aside class="drawer" id="drawer" aria-label="Settings" aria-hidden="true" tabindex="-1"></aside>
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="sheet" id="sheet"></div></div>
 <div class="wrap">
-<header><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button><div class="logo">Cartoon<span>club</span></div><button class="btn alt wlb" id="wlb" type="button"></button></header>
+<header><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button><div class="logo">Cartoon<span>club</span></div><div class="hb"><button class="btn alt dxb" id="dxb" type="button"><svg class="pb" viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12a10.5 10.5 0 0 1 21 0z" fill="#e53935"/><path d="M1.5 12a10.5 10.5 0 0 0 21 0z" fill="#f4f5f9"/><path d="M1.5 12h21" stroke="#1c2140" stroke-width="2.4"/><circle cx="12" cy="12" r="4" fill="#1c2140"/><circle cx="12" cy="12" r="2.7" fill="url(#pbB)"/><circle cx="12" cy="12" r="10.5" fill="url(#pbS)"/><circle cx="12" cy="12" r="10.5" fill="none" stroke="#1c2140" stroke-width="1.1"/><ellipse cx="8" cy="6.2" rx="3.4" ry="1.9" transform="rotate(-35 8 6.2)" fill="url(#pbH)"/></svg>Pok&eacute;dex</button><button class="btn alt wlb" id="wlb" type="button"></button></div></header>
 <main>
-<section class="hero" id="hero"><i></i><i></i><h1>Animated movie catalogue</h1><p>Browse by genre, then tap any movie to read its summary.</p>
+<div id="cat">
+<section class="hero" id="hero"><i></i><i></i><h1>Cartoon movies club</h1><p>Browse by genre, then tap any movie to read its summary.</p>
 <div class="sb"><input id="q" type="search" placeholder="Search movies" aria-label="Search movies" autocomplete="off"><button class="src" id="srcb" type="button" hidden></button></div></section>
 <div class="chips" id="chips" role="group" aria-label="Genres"></div>
 <p class="note" id="count" role="status"></p>
 <div class="grid" id="grid"></div>
 <button class="btn alt more" id="more" hidden>Load more</button>
 
+</div>
+<section class="dx" id="dex" hidden aria-label="Pok&eacute;dex"><div class="hero"><i></i><i></i><h1><svg class="pb" viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12a10.5 10.5 0 0 1 21 0z" fill="#e53935"/><path d="M1.5 12a10.5 10.5 0 0 0 21 0z" fill="#f4f5f9"/><path d="M1.5 12h21" stroke="#1c2140" stroke-width="2.4"/><circle cx="12" cy="12" r="4" fill="#1c2140"/><circle cx="12" cy="12" r="2.7" fill="url(#pbB)"/><circle cx="12" cy="12" r="10.5" fill="url(#pbS)"/><circle cx="12" cy="12" r="10.5" fill="none" stroke="#1c2140" stroke-width="1.1"/><ellipse cx="8" cy="6.2" rx="3.4" ry="1.9" transform="rotate(-35 8 6.2)" fill="url(#pbH)"/></svg>Pok&eacute;dex</h1><p>Search any Pok&eacute;mon by name or number, or browse 10 at a time.</p><div class="sb"><input id="dq" type="search" placeholder="Search, e.g. ditto" aria-label="Search Pok&eacute;mon" autocomplete="off"><button class="src" id="dgo" type="button">Search</button></div></div>
+<div class="grid" id="dgrid"></div>
+<button class="btn alt more" id="dmore" hidden>Load more</button></section>
 </main>
-<footer><p class="note">Movie data comes from OMDb.</p></footer>
+<footer><p class="note">Movie data comes from OMDb and Pok&eacute;mon data from Pok&eacute;API.</p></footer>
 </div>
 <script>
 (function(){
@@ -169,7 +186,7 @@ function wlSync(){wlLabel();var mb=$("sheet").querySelector("[data-a=wl]");if(mb
  [].forEach.call(document.querySelectorAll("#grid .wl"),function(b){var m=S.items[+b.dataset.w];if(!m)return;var on=wlIdx(m)>-1;b.setAttribute("aria-pressed",on);b.setAttribute("aria-label",(on?"Remove ":"Add ")+m.title+(on?" from":" to")+" watchlist");b.textContent=on?"\ud83e\udde0":"\ud83e\udde0"})}
 function wlToggle(m){var i=wlIdx(m);if(i>-1)WL.splice(i,1);else WL.push(m);wlSave();wlSync()}
 function setWl(v){S.wl=v;$("hero").hidden=v;$("chips").hidden=v;wlLabel();draw();window.scrollTo(0,0)}
-$("wlb").onclick=function(){setWl(!S.wl)};
+$("wlb").onclick=function(){var d=DX;if(d)setDex(false);setWl(d?true:!S.wl)};
 var last;
 function openM(m){cur=m;last=document.activeElement;var im=m.img?'<img src="'+esc(m.img)+'" alt="" onerror="this.remove()">':'<b></b><em aria-hidden="true">'+esc(m.title.charAt(0))+'</em>';
  $("sheet").innerHTML='<button class="x" data-a="close" aria-label="Close summary">&times;</button><div class="art" style="--h:'+hue(m)+'">'+im+'</div><div><h2 id="mt">'+esc(m.title)+'</h2><div class="meta">'+[m.year,m.studio,m.score?'\u2605 '+(+m.score).toFixed(1):""].filter(Boolean).map(esc).join(" \u00b7 ")+'</div><div class="tags">'+m.genres.map(function(g){return'<span class="tag">'+esc(g)+'</span>'}).join("")+'</div><h3>Summary</h3><p>'+esc(m.summary)+'</p><div class="acts">'+mbtn(m)+'<button class="btn alt" data-a="close">Cancel</button></div></div>';
@@ -193,6 +210,50 @@ $("chips").innerHTML=[["All"]].concat(GEN).map(function(g,i){var v=i?g[0]:"";ret
 $("chips").onclick=function(e){var b=e.target.closest(".chip");if(!b)return;S.g=b.dataset.g;[].forEach.call($("chips").children,function(c){c.setAttribute("aria-pressed",c.dataset.g===S.g)});load()};
 var tm;$("q").oninput=function(){S.q=this.value.trim();clearTimeout(tm);tm=setTimeout(load,PR.src==="local"?0:400)};
 document.addEventListener("keydown",function(e){if(e.key==="Escape"){if($("modal").classList.contains("show"))closeM();else if($("drawer").classList.contains("open"))drawer(false)}});
+var PB='<svg class="pb" viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12a10.5 10.5 0 0 1 21 0z" fill="#e53935"/><path d="M1.5 12a10.5 10.5 0 0 0 21 0z" fill="#f4f5f9"/><path d="M1.5 12h21" stroke="#1c2140" stroke-width="2.4"/><circle cx="12" cy="12" r="4" fill="#1c2140"/><circle cx="12" cy="12" r="2.7" fill="url(#pbB)"/><circle cx="12" cy="12" r="10.5" fill="url(#pbS)"/><circle cx="12" cy="12" r="10.5" fill="none" stroke="#1c2140" stroke-width="1.1"/><ellipse cx="8" cy="6.2" rx="3.4" ry="1.9" transform="rotate(-35 8 6.2)" fill="url(#pbH)"/></svg>',DX=false,D={q:"",raw:"",note:"",off:0,items:[],more:false,busy:false,err:null,tok:0,dt:0},PAPI="https://pokeapi.co/api/v2/pokemon";
+function pname(s){return String(s||"").replace(/-/g," ").replace(/(^|\s)\S/g,function(c){return c.toUpperCase()})}
+function pimg(id){return"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/"+id+".png"}
+function pid(n){return"#"+String(n).padStart(3,"0")}
+function dcard(p,i){return'<div class="cw"><button class="mc" data-d="'+p.id+'" style="--i:'+Math.min(i,12)+';--h:'+(p.id*47%360)+'"><span class="art"><img src="'+pimg(p.id)+'" alt="" loading="lazy" onerror="this.remove()"></span><span class="mi"><b>'+esc(pname(p.name))+'</b><small>'+pid(p.id)+'</small></span></button></div>'}
+function dexDraw(){var h="",i;
+ if(D.busy&&!D.items.length)for(i=0;i<8;i++)h+='<div class="sk" style="--i:'+i+'"></div>';
+ else if(D.err)h='<div class="msg"><p>'+esc(D.err)+'</p><button class="btn" data-a="dretry">Try again</button></div>';
+ else if(!D.items.length)h='<div class="msg">No Pok\u00e9mon found.</div>';
+ else h=(D.note?'<p class="note dn">'+esc(D.note)+'</p>':"")+D.items.map(dcard).join("");
+ $("dgrid").innerHTML=h;$("dmore").hidden=!(D.more||(D.busy&&D.items.length));$("dmore").disabled=D.busy;$("dmore").textContent=D.busy?"Loading...":"Load more"}
+function dexLoad(more){var t=++D.tok;if(more)D.off+=10;else{D.off=0;D.items=[];D.note=""}D.busy=true;D.err=null;dexDraw();
+ var req=D.q?dexFind(D.q):jget(PAPI+"?limit=10&offset="+D.off).then(function(d){return{items:(d.results||[]).map(function(x){var m=/\/pokemon\/(\d+)/.exec(x.url||"");return{id:m?+m[1]:0,name:x.name}}),more:!!d.next}});
+ req.then(function(r){if(t!==D.tok)return;D.items=D.items.concat(r.items);D.more=r.more;D.note=r.note||"";D.busy=false;dexDraw()}).catch(function(e){if(t!==D.tok)return;D.busy=false;D.more=false;D.err=e&&e.status===404?"No Pok\u00e9mon found for \u201c"+(D.raw||D.q)+"\u201d. Try a name like ditto or a number.":"Could not load Pok\u00e9mon. Check your connection and try again.";if(more)D.off-=10;dexDraw()})}
+var PN=null;
+function dexNames(){return PN?Promise.resolve(PN):jget(PAPI+"?limit=2000").then(function(d){PN=(d.results||[]).map(function(x){var m=/\/pokemon\/(\d+)/.exec(x.url||"");return{id:m?+m[1]:0,name:x.name}});return PN})}
+function dexDist(a,b,max){var al=a.length,bl=b.length,d=[],i,j,c;if(Math.abs(al-bl)>max)return max+1;
+ for(i=0;i<=al;i++)d[i]=[i];for(j=1;j<=bl;j++)d[0][j]=j;
+ for(i=1;i<=al;i++)for(j=1;j<=bl;j++){c=a.charAt(i-1)===b.charAt(j-1)?0:1;d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+c);if(i>1&&j>1&&a.charAt(i-1)===b.charAt(j-2)&&a.charAt(i-2)===b.charAt(j-1))d[i][j]=Math.min(d[i][j],d[i-2][j-2]+1)}
+ return d[al][bl]}
+function dexFind(q){var one=function(){return jget(PAPI+"/"+encodeURIComponent(q)).then(function(d){return{items:[{id:d.id,name:d.name}],more:false}})};
+ if(/^\d+$/.test(q))return one();
+ return dexNames().catch(function(){return null}).then(function(all){if(!all)return one();
+  var ex=all.filter(function(p){return p.name===q});if(ex.length)return{items:ex,more:false};
+  var pm=all.filter(function(p){return p.name.indexOf(q)>-1}).sort(function(a,b){return(a.name.indexOf(q)>0)-(b.name.indexOf(q)>0)});if(pm.length)return{items:pm.slice(0,10),more:false};
+  var max=Math.max(1,Math.floor(q.length/3)),best=max+1,hits=[];
+  all.forEach(function(p){var d=dexDist(q,p.name,max);if(d<best){best=d;hits=[p]}else if(d===best&&d<=max)hits.push(p)});
+  if(!hits.length)return Promise.reject({status:404});hits=hits.slice(0,5);
+  return{items:hits,more:false,note:"No exact match for \u201c"+D.raw+"\u201d. Showing the closest: "+hits.map(function(p){return pname(p.name)}).join(", ")+"."}})}
+function dexSearch(){D.raw=$("dq").value.trim();D.q=D.raw.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[.'\u2019]/g,"").replace(/\s+/g,"-");dexLoad()}
+function setDex(v){DX=v;$("cat").hidden=v;$("dex").hidden=!v;$("dxb").innerHTML=v?"\u2190 Catalogue":PB+"Pok\u00e9dex";if(v)dexNames().catch(function(){});if(v&&!D.items.length&&!D.busy)dexLoad();window.scrollTo(0,0)}
+function openD(id){var t=++D.dt;last=document.activeElement;var x='<button class="x" data-a="close" aria-label="Close details">&times;</button>';
+ $("sheet").innerHTML=x+'<div class="art dxart" style="--h:'+(id*47%360)+'"></div><div><h2 id="mt">Loading...</h2></div>';$("modal").classList.add("show");$("sheet").querySelector(".x").focus();
+ jget(PAPI+"/"+id).then(function(d){if(t!==D.dt)return;var o=d.sprites&&d.sprites.other&&d.sprites.other["official-artwork"],im=o&&o.front_default||pimg(d.id);
+  var ty=(d.types||[]).map(function(a){return'<span class="tag">'+esc(pname(a.type.name))+'</span>'}).join(""),ab=(d.abilities||[]).map(function(a){return esc(pname(a.ability.name))+(a.is_hidden?" (hidden)":"")}).join(", ");
+  var bars=(d.stats||[]).map(function(a){var n=a.stat.name==="hp"?"HP":pname(a.stat.name).replace("Special ","Sp. ");return'<div class="stat"><span>'+esc(n)+'</span><b>'+a.base_stat+'</b><div class="bar"><i style="width:'+Math.min(100,Math.round(a.base_stat/1.6))+'%"></i></div></div>'}).join("");
+  $("sheet").innerHTML=x+'<div class="art dxart" style="--h:'+(d.id*47%360)+'"><img src="'+esc(im)+'" alt="" onerror="this.remove()"></div><div><h2 id="mt">'+esc(pname(d.name))+'</h2><div class="meta">'+pid(d.id)+' \u00b7 '+d.height/10+' m \u00b7 '+d.weight/10+' kg</div><div class="tags">'+ty+'</div><h3>Abilities</h3><p>'+(ab||"None")+'</p><h3>Base stats</h3>'+bars+'<div class="acts"><button class="btn alt" data-a="close">Close</button></div></div>';$("sheet").querySelector(".x").focus()
+ }).catch(function(){if(t!==D.dt)return;$("sheet").innerHTML=x+'<div class="art dxart"></div><div><h2 id="mt">Pok\u00e9mon</h2><p class="meta">Could not load details. Check your connection and try again.</p><div class="acts"><button class="btn alt" data-a="close">Close</button></div></div>';$("sheet").querySelector(".x").focus()})}
+$("dxb").onclick=function(){setDex(!DX)};
+$("dgo").onclick=dexSearch;
+$("dq").onkeydown=function(e){if(e.key==="Enter")dexSearch()};
+$("dq").oninput=function(){if(!this.value.trim()&&D.q)dexSearch()};
+$("dmore").onclick=function(){dexLoad(true)};
+$("dgrid").onclick=function(e){var b=e.target.closest("button");if(!b)return;if(b.dataset.d)openD(+b.dataset.d);else if(b.dataset.a==="dretry")dexLoad()};
 wlLabel();applyPrefs();load();
 })();
 </script>
