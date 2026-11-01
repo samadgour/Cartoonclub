@@ -88,7 +88,7 @@ header .wlb{margin-left:auto;display:flex;align-items:center;gap:8px;padding:9px
 <p class="note" id="count" role="status"></p>
 <div class="grid" id="grid"></div>
 <button class="btn alt more" id="more" hidden>Load more</button>
-<button class="btn alt more" id="all" hidden>Load all</button>
+
 </main>
 <footer><p class="note">Movie data comes from OMDb.</p></footer>
 </div>
@@ -122,10 +122,10 @@ function jget(u,h){return fetch(u,{headers:h||{}}).then(function(r){if(!r.ok){va
 function jmap(a){var im=a.images&&a.images.jpg||{},f=a.aired&&a.aired.prop&&a.aired.prop.from;return{id:"j"+a.mal_id,title:a.title_english||a.title,year:a.year||(f&&f.year)||"",studio:a.studios&&a.studios[0]?a.studios[0].name:"",score:a.score||"",genres:(a.genres||[]).map(function(g){return g.name}),summary:a.synopsis||"No summary available.",img:im.large_image_url||im.image_url||""}}
 function tmap(m){return{id:"t"+m.id,title:m.title,year:(m.release_date||"").slice(0,4),studio:"",score:m.vote_average||"",genres:(m.genre_ids||[]).map(function(i){return TG[i]}).filter(Boolean),summary:m.overview||"No summary available.",img:m.poster_path?"https://image.tmdb.org/t/p/w342"+m.poster_path:""}}
 var CONFIG={src:"omdb",key:"",okey:"d6ce077a"}; /* Paste your OMDb key between the quotes after okey: */
-var PR={src:"local",mode:"auto",calm:false,key:"",okey:"6f35dc92"};try{Object.assign(PR,JSON.parse(localStorage.getItem("tc_prefs")||"{}"))}catch(e){}PR.src=CONFIG.src;PR.key=CONFIG.key;PR.okey=CONFIG.okey;
+var PR={src:"local",mode:"auto",calm:false,key:"",okey:"d6ce077a"};try{Object.assign(PR,JSON.parse(localStorage.getItem("tc_prefs")||"{}"))}catch(e){}PR.src=CONFIG.src;PR.key=CONFIG.key;PR.okey=CONFIG.okey;
 var PROV={
  local:{n:"Built-in list",d:"18 hand-picked movies. Works offline.",load:function(q,g){var s=q.toLowerCase();return Promise.resolve({items:LOCAL.filter(function(m){return(!g||m.genres.indexOf(g)>-1)&&(!s||(m.title+" "+m.studio).toLowerCase().indexOf(s)>-1)}),more:false})}},
- jikan:{n:"Jikan (anime movies)",d:"Free, no key needed. Data from MyAnimeList.",load:function(q,g,p){var gi=g&&gid(g,1);return jget("https://api.jikan.moe/v4/anime?sfw=true&type=movie&order_by=popularity&sort=asc&limit=24&page="+p+(gi?"&genres="+gi:"")+(q?"&q="+encodeURIComponent(q):"")).then(function(d){return{items:(d.data||[]).map(jmap),more:!!(d.pagination&&d.pagination.has_next_page)}})}},
+ jikan:{n:"Jikan (anime movies)",d:"Free, no key needed. Data from MyAnimeList.",load:function(q,g,p){var gi=g&&gid(g,1);return jget("https://api.jikan.moe/v4/anime?sfw=true&type=movie&order_by=popularity&sort=asc&limit=10&page="+p+(gi?"&genres="+gi:"")+(q?"&q="+encodeURIComponent(q):"")).then(function(d){return{items:(d.data||[]).map(jmap),more:!!(d.pagination&&d.pagination.has_next_page)}})}},
  tmdb:{n:"TMDB (animated films)",d:"Free key needed. Western and world animation.",load:function(q,g,p){var k=(PR.key||"").trim();if(!k)return Promise.reject({nokey:1});var gi=g&&gid(g,2),b=k.length>40;
   var u="https://api.themoviedb.org/3/"+(q?"search/movie?query="+encodeURIComponent(q):"discover/movie?sort_by=popularity.desc&with_genres="+(gi?"16,"+gi:16))+"&include_adult=false&language=en-US&page="+p+(b?"":"&api_key="+encodeURIComponent(k));
   return jget(u,b?{Authorization:"Bearer "+k}:{}).then(function(d){var r=d.results||[];if(q)r=r.filter(function(m){var i=m.genre_ids||[];return i.indexOf(16)>-1&&(!gi||i.indexOf(gi)>-1)});return{items:r.map(tmap),more:p<(d.total_pages||1)}})}}};
@@ -139,7 +139,7 @@ function odet(q){if(q in OC)return Promise.resolve(OC[q]);return oget(q+"&type=m
 PROV.omdb={n:"OMDb (posters and plots)",d:"Free key needed. About 280 animated movies with posters and plots.",test:function(){return oget("t=Shrek")},
  load:function(q,g,p){if(!(PR.okey||"").trim())return Promise.reject({nokey:1});var keep=function(m){return m&&(!g||m.genres.indexOf(g)>-1)};
   if(q)return oget("s="+encodeURIComponent(q)+"&type=movie&page="+p).catch(function(e){if(e.omdb==="Movie not found!"||e.omdb==="Too many results.")return{Search:[],totalResults:0};throw e}).then(function(d){return Promise.all((d.Search||[]).map(function(x){return odet("i="+x.imdbID)})).then(function(a){return{items:a.filter(function(m){return keep(m)&&m.genres.indexOf("Animation")>-1}),more:p*10<(+d.totalResults||0)}})});
-  return Promise.all(OS.slice((p-1)*24,p*24).map(function(x){return odet("t="+encodeURIComponent(x[0])+"&y="+x[1])})).then(function(a){return{items:a.filter(keep),more:p*24<OS.length}})}};
+  return Promise.all(OS.slice((p-1)*10,p*10).map(function(x){return odet("t="+encodeURIComponent(x[0])+"&y="+x[1])})).then(function(a){return{items:a.filter(keep),more:p*10<OS.length}})}};
 PROV.tmdb.test=function(){return PROV.tmdb.load("","",1)};
 if(!PROV[PR.src])PR.src="local";
 function applyPrefs(){var r=document.documentElement;r.dataset.mode=PR.mode;if(PR.calm)r.dataset.calm="1";else delete r.dataset.calm;try{localStorage.setItem("tc_prefs",JSON.stringify(PR))}catch(e){}}
@@ -155,9 +155,9 @@ function draw(){var h="",i;$("srcb").textContent="Source: "+PROV[PR.src].n+" \u2
  else if(!S.items.length)h='<div class="msg">No movies found. '+(S.more?"Tap Load more to keep looking.":"Try another genre or search.")+'</div>';
  else h=S.items.map(card).join("");
  $("grid").innerHTML=h;$("count").textContent=S.wl?(WL.length?"Watchlist: "+WL.length+" movie"+(WL.length>1?"s":""):""):S.items.length&&!S.err?(S.g?S.g+": ":"")+S.items.length+" movies":"";
- $("more").hidden=S.wl||!(S.more||(S.busy&&S.items.length));$("more").disabled=S.busy;$("all").hidden=S.wl||!(S.more&&PR.src==="omdb"&&!S.q&&!S.busy);$("more").textContent=S.busy?"Loading...":"Load more"}
-function load(more){var t=++S.tok;if(more)S.p++;else{S.p=1;S.items=[];S.all=false}S.busy=true;S.err=null;draw();
- PROV[PR.src].load(S.q,S.g,S.p).then(function(r){if(t!==S.tok)return;S.items=S.items.concat(r.items);S.more=r.more;S.busy=false;draw();if(S.all&&S.more)load(true)}).catch(function(e){if(t!==S.tok)return;S.busy=false;S.err=e;S.more=false;S.all=false;if(more)S.p--;draw()})}
+ $("more").hidden=S.wl||!(S.more||(S.busy&&S.items.length));$("more").disabled=S.busy;$("more").textContent=S.busy?"Loading...":"Load more"}
+function load(more){var t=++S.tok;if(more)S.p++;else{S.p=1;S.items=[]}S.busy=true;S.err=null;draw();
+ PROV[PR.src].load(S.q,S.g,S.p).then(function(r){if(t!==S.tok)return;S.items=S.items.concat(r.items);S.more=r.more;S.busy=false;draw()}).catch(function(e){if(t!==S.tok)return;S.busy=false;S.err=e;S.more=false;if(more)S.p--;draw()})}
 var WL=[],cur,undoM,undoAt,tt;try{WL=JSON.parse(localStorage.getItem("tc_wl")||"[]");if(!Array.isArray(WL))WL=[]}catch(e){WL=[]}
 function wlSave(){try{localStorage.setItem("tc_wl",JSON.stringify(WL))}catch(e){}}
 function wlIdx(m){for(var i=0;i<WL.length;i++)if(WL[i].id===m.id)return i;return-1}
@@ -187,7 +187,7 @@ $("drawer").onclick=function(e){var b=e.target.closest("[data-m]");if(!b)return;
  else if(m==="mode"){PR.mode=b.dataset.v;applyPrefs();drawDrawer();refocus('[data-v="'+PR.mode+'"][data-m="mode"]')}
  else if(m==="calm"){PR.calm=!PR.calm;applyPrefs();drawDrawer();refocus('[data-m="calm"]')}};
 $("grid").onclick=function(e){var b=e.target.closest("button");if(!b)return;if(b.dataset.w!=null)wlToggle(list()[+b.dataset.w]);else if(b.dataset.i!=null)openM(list()[+b.dataset.i]);else if(b.dataset.a==="back")setWl(false);else if(b.dataset.a==="retry")load();else if(b.dataset.a==="menu")drawer(true)};
-$("more").onclick=function(){load(true)};$("all").onclick=function(){S.all=true;load(true)};
+$("more").onclick=function(){load(true)};
 $("modal").onclick=function(e){if(e.target.closest("[data-a=wl]")){wlToggle(cur);return}if(e.target===$("modal")||e.target.closest("[data-a=close]"))closeM()};
 $("chips").innerHTML=[["All"]].concat(GEN).map(function(g,i){var v=i?g[0]:"";return'<button class="chip" data-g="'+v+'" aria-pressed="'+(S.g===v)+'">'+g[0]+'</button>'}).join("");
 $("chips").onclick=function(e){var b=e.target.closest(".chip");if(!b)return;S.g=b.dataset.g;[].forEach.call($("chips").children,function(c){c.setAttribute("aria-pressed",c.dataset.g===S.g)});load()};
