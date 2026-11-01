@@ -121,7 +121,7 @@ var LOCAL=L.map(function(a,i){return{id:"l"+i,title:a[0],year:a[1],studio:a[2],g
 function jget(u,h){return fetch(u,{headers:h||{}}).then(function(r){if(!r.ok){var e=new Error("HTTP "+r.status);e.status=r.status;throw e}return r.json()})}
 function jmap(a){var im=a.images&&a.images.jpg||{},f=a.aired&&a.aired.prop&&a.aired.prop.from;return{id:"j"+a.mal_id,title:a.title_english||a.title,year:a.year||(f&&f.year)||"",studio:a.studios&&a.studios[0]?a.studios[0].name:"",score:a.score||"",genres:(a.genres||[]).map(function(g){return g.name}),summary:a.synopsis||"No summary available.",img:im.large_image_url||im.image_url||""}}
 function tmap(m){return{id:"t"+m.id,title:m.title,year:(m.release_date||"").slice(0,4),studio:"",score:m.vote_average||"",genres:(m.genre_ids||[]).map(function(i){return TG[i]}).filter(Boolean),summary:m.overview||"No summary available.",img:m.poster_path?"https://image.tmdb.org/t/p/w342"+m.poster_path:""}}
-var CONFIG={src:"omdb",key:"",okey:"6f35dc92"}; /* Paste your OMDb key between the quotes after okey: */
+var CONFIG={src:"omdb",key:"",okey:"d6ce077a"}; /* Paste your OMDb key between the quotes after okey: */
 var PR={src:"local",mode:"auto",calm:false,key:"",okey:"6f35dc92"};try{Object.assign(PR,JSON.parse(localStorage.getItem("tc_prefs")||"{}"))}catch(e){}PR.src=CONFIG.src;PR.key=CONFIG.key;PR.okey=CONFIG.okey;
 var PROV={
  local:{n:"Built-in list",d:"18 hand-picked movies. Works offline.",load:function(q,g){var s=q.toLowerCase();return Promise.resolve({items:LOCAL.filter(function(m){return(!g||m.genres.indexOf(g)>-1)&&(!s||(m.title+" "+m.studio).toLowerCase().indexOf(s)>-1)}),more:false})}},
