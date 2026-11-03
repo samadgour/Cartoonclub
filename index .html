@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cartoon movies club</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<script>try{var p=JSON.parse(localStorage.getItem("tc_prefs")||"{}"),r=document.documentElement;r.dataset.mode=p.mode||"auto";if(p.calm)r.dataset.calm="1"}catch(e){}</script>
+<style>
+:root{--bg:#f4f6fb;--fg:#1c2140;--muted:#5d6486;--card:#fff;--line:#e1e6f3;--accent:#5b4bdb;--on:#fff;--star:#a86a00;--sh:0 1px 2px rgba(28,33,64,.06),0 10px 28px -14px rgba(28,33,64,.22);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-mode=light]){--bg:#0f1226;--fg:#eceeff;--muted:#a3a9d4;--card:#181c3a;--line:#2a2f5a;--accent:#8f82ff;--on:#0f1226;--star:#ffc34d;--sh:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.6);color-scheme:dark}}
+:root[data-mode=dark]{--bg:#0f1226;--fg:#eceeff;--muted:#a3a9d4;--card:#181c3a;--line:#2a2f5a;--accent:#8f82ff;--on:#0f1226;--star:#ffc34d;--sh:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.6);color-scheme:dark}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--fg);font:500 15px/1.55 'Plus Jakarta Sans',system-ui,sans-serif;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+button,input{font:inherit;color:inherit;cursor:pointer}input{cursor:text}
+h1,h2,h3{font-weight:800;letter-spacing:-.02em;margin:0}
+:focus-visible{outline:3px solid #2f7bff;outline-offset:2px}
+@keyframes rise{from{opacity:0;transform:translateY(18px) scale(.97)}}
+@keyframes float{50%{transform:translateY(-12px) rotate(8deg)}}
+@keyframes pulse{to{opacity:.45}}
+.wrap{max-width:1040px;margin:0 auto;padding:0 18px}
+header{display:flex;align-items:center;gap:12px;padding:16px 0 6px}
+.logo{font-size:22px;font-weight:800}.logo span{color:var(--accent)}
+.burger{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:var(--card);display:grid;place-content:center;gap:4px;padding:0;box-shadow:var(--sh)}
+.burger span{display:block;width:18px;height:2px;border-radius:2px;background:var(--fg);transition:width .2s}.burger:hover span:nth-child(2){width:11px}
+.hero{position:relative;overflow:hidden;margin:12px 0 16px;padding:26px 22px;border-radius:24px;color:#fff;background:linear-gradient(135deg,#3b3fd1,#8a3ffc 55%,#d6336c);animation:rise .6s cubic-bezier(.2,.8,.2,1) backwards}
+.hero i{position:absolute;border-radius:50%;background:rgba(255,255,255,.14);animation:float 7s ease-in-out infinite}
+.hero i:nth-child(1){width:170px;height:170px;right:-40px;top:-50px}.hero i:nth-child(2){width:80px;height:80px;right:90px;bottom:-20px;animation-delay:-2s}
+.hero>:not(i){position:relative}.hero h1{font-size:clamp(26px,5vw,40px);line-height:1.1;margin-bottom:6px}.hero p{margin:0 0 16px;max-width:460px;opacity:.92}
+.sb{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.sb input{flex:1 1 220px;min-width:0;border:0;border-radius:14px;padding:12px 16px;background:#fff;color:#1c2140}
+.src{border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.16);color:#fff;border-radius:99px;padding:9px 14px;font-weight:600;font-size:13px}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:4px 0 12px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);border-radius:99px;padding:8px 16px;font-weight:600;font-size:14px;transition:transform .15s}
+.chip:hover{transform:translateY(-2px)}.chip[aria-pressed=true]{background:var(--accent);color:var(--on);border-color:var(--accent)}
+.note{font-size:12.5px;color:var(--muted);margin:0}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-flow:dense;gap:14px;padding:8px 0 18px}
+.mc{display:flex;flex-direction:column;height:100%;padding:0;overflow:hidden;text-align:left;border:1px solid var(--line);border-radius:24px;background:var(--card);box-shadow:var(--sh);animation:rise .55s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i)*45ms);transition:transform .22s cubic-bezier(.2,.8,.2,1)}
+.mc:hover{transform:translateY(-4px)}.mc:active{transform:scale(.98)}
+.art{flex:1;position:relative;overflow:hidden;aspect-ratio:2/3;display:grid;place-items:center;background:linear-gradient(160deg,hsl(var(--h,230) 85% 84%),hsl(calc(var(--h,230) + 30) 90% 93%))}
+.big .art{aspect-ratio:auto}.art img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.art em{font-style:normal;font-weight:800;font-size:72px;color:rgba(28,33,64,.5);animation:float 5s ease-in-out infinite}
+.art b{position:absolute;border-radius:50%;background:rgba(255,255,255,.6);animation:float 5s ease-in-out infinite}
+.art b:nth-child(1){width:46%;aspect-ratio:1;right:-10%;top:-8%}.art b:nth-child(2){width:24%;aspect-ratio:1;left:10%;bottom:12%;animation-delay:-2s}
+.mi{display:block;padding:10px 14px 13px}.mi b{display:block;font-size:14px;line-height:1.3}.mi small{color:var(--muted);font-size:12.5px}
+.sc{float:right;font-weight:700;font-size:12.5px;color:var(--star)}
+.sk{aspect-ratio:2/3.3;border-radius:24px;background:var(--line);animation:pulse 1.1s ease-in-out infinite alternate}
+.msg{grid-column:1/-1;text-align:center;padding:40px 16px;color:var(--muted)}.msg .btn{margin-top:12px}
+.btn{border:0;border-radius:12px;padding:10px 18px;background:var(--accent);color:var(--on);font-weight:700;transition:transform .15s,filter .15s}
+.btn:hover{filter:brightness(1.07);transform:translateY(-1px)}.btn:active{transform:scale(.97)}.btn.alt{background:var(--card);color:var(--fg);border:1px solid var(--line)}
+.more{display:block;margin:4px auto 10px}
+footer{padding:6px 0 34px;text-align:center}
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(15,18,38,.55);z-index:30}.modal.show{display:flex}
+.sheet{position:relative;display:grid;grid-template-columns:minmax(0,220px) 1fr;gap:22px;width:min(760px,100%);max-height:calc(100dvh - 32px);overflow:auto;background:var(--card);border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:var(--sh);animation:rise .35s cubic-bezier(.2,.8,.2,1)}
+.sheet .art{flex:none;aspect-ratio:2/3;border-radius:16px;align-self:start}
+.sheet h2{font-size:24px;margin-bottom:6px;padding-right:34px}.sheet h3{font-size:14px;margin-bottom:4px}.meta{color:var(--muted);font-size:14px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 14px}.tag{border:1px solid var(--line);background:var(--bg);border-radius:99px;padding:4px 12px;font-size:13px;font-weight:600}
+.sheet p{white-space:pre-line;margin:0}
+.x{width:36px;height:36px;border:1px solid var(--line);background:var(--card);border-radius:10px;font-size:20px;line-height:1;padding:0}.sheet .x{position:absolute;right:14px;top:12px}
+.scrim{position:fixed;inset:0;background:rgba(15,18,38,.5);opacity:0;pointer-events:none;transition:opacity .25s;z-index:20}.scrim.show{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;bottom:0;left:0;width:min(340px,88vw);background:var(--card);border-right:1px solid var(--line);box-shadow:var(--sh);z-index:21;overflow:auto;padding:calc(18px + env(safe-area-inset-top,0px)) 16px 28px;transform:translateX(-102%);visibility:hidden;transition:transform .3s cubic-bezier(.2,.8,.2,1),visibility 0s .3s;outline:0}
+.drawer.open{transform:none;visibility:visible;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.dh{display:flex;align-items:center;justify-content:space-between;font-size:18px}.dsec{font-size:12px;font-weight:700;color:var(--muted);margin:18px 4px 8px}
+.opt{display:block;width:100%;text-align:left;border:1px solid var(--line);background:var(--bg);border-radius:14px;padding:10px 12px;margin-bottom:8px}.opt b{display:block}.opt small{color:var(--muted)}
+.opt[aria-pressed=true]{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset}
+.key{display:flex;gap:8px;margin:4px 0 8px}.key input{flex:1;min-width:0;border:1px solid var(--line);border-radius:12px;padding:9px 12px;background:var(--bg)}
+.seg{display:flex;background:var(--bg);border-radius:12px;padding:4px;gap:4px}.seg button{flex:1;border:0;background:none;padding:7px;border-radius:9px;font-weight:600;color:var(--muted)}.seg button[aria-pressed=true]{background:var(--card);color:var(--fg);box-shadow:var(--sh)}
+.di{display:flex;align-items:center;width:100%;border:0;background:none;padding:12px 6px;font-weight:600;text-align:left;margin-top:4px}
+.tg{margin-left:auto;width:38px;height:22px;border-radius:99px;background:var(--line);position:relative;transition:background .2s}.tg::after{content:"";position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .2s}
+.di[aria-pressed=true] .tg{background:var(--accent)}.di[aria-pressed=true] .tg::after{transform:translateX(16px)}
+.cw{position:relative;display:flex;flex-direction:column}.cw.big{grid-column:span 2;grid-row:span 2}.cw .mc{flex:1}
+.wl{position:absolute;top:10px;right:10px;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--card);color:var(--fg);font-size:18px;line-height:1;padding:0;display:grid;place-items:center;box-shadow:var(--sh);transition:transform .15s}.wl:hover{transform:scale(1.1)}.wl[aria-pressed=false]{filter:grayscale(1);opacity:.8}.wl[aria-pressed=true]{background:var(--accent);color:var(--on);border-color:var(--accent)}
+header .wlb{margin-left:auto;display:flex;align-items:center;gap:8px;padding:9px 14px;font-size:14px}.wlb .n{background:var(--accent);color:var(--on);border-radius:99px;min-width:22px;padding:0 7px;font-size:12px;line-height:22px;text-align:center}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+@media (max-width:760px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:560px){.grid{grid-template-columns:1fr 1fr}.cw.big{grid-row:auto}.big .art{aspect-ratio:16/10}.sheet{grid-template-columns:1fr}.sheet .art{aspect-ratio:16/10;max-height:200px}}
+:root[data-calm] *,:root[data-calm] *::before,:root[data-calm] *::after{animation:none!important;transition:none!important}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+header{flex-wrap:wrap}header .dxb{margin-left:auto;display:flex;align-items:center;gap:6px;padding:9px 14px;font-size:14px}header .dxb+.wlb{margin-left:0}
+.dx .art img,.dxart img{object-fit:contain;padding:10px;box-sizing:border-box}
+.stat{display:grid;grid-template-columns:78px 30px 1fr;gap:8px;align-items:center;font-size:13px;margin-bottom:6px}.stat span{color:var(--muted)}
+.bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;border-radius:99px;background:var(--accent)}
+.pb{width:1em;height:1em;flex:none;vertical-align:-.12em;will-change:transform;backface-visibility:hidden;transition:transform .25s}.dxb:hover .pb{animation:none;transform:rotate(-18deg) scale(1.1)}
+@keyframes pbwob{0%,55%,100%{transform:rotate(0)}8%{transform:rotate(-24deg)}18%{transform:rotate(20deg)}28%{transform:rotate(-14deg)}38%{transform:rotate(10deg)}48%{transform:rotate(-4deg)}}
+@keyframes pbhop{0%,100%{transform:translate3d(0,0,0) rotate(0)}12%{transform:translate3d(0,-.28em,0) rotate(-12deg)}24%{transform:translate3d(0,0,0) rotate(0)}34%{transform:translate3d(0,-.12em,0) rotate(8deg)}44%{transform:translate3d(0,0,0) rotate(0)}}
+.pb{animation:pbwob 3.6s ease-in-out infinite}.hero .pb{animation:pbhop 2.8s ease-in-out infinite}header .pb{width:18px;height:18px}.hero .pb{margin-right:8px}
+.dn{grid-column:1/-1;margin:0 0 2px}
+.hb{display:flex;align-items:center;gap:8px;margin-left:auto}.hb .btn{margin:0}
+@media (max-width:560px){.hb{flex:1 1 100%;margin-left:0}.hb .btn{flex:1;justify-content:center}}
+.evo{display:flex;align-items:center;flex-wrap:wrap;gap:6px}.es{display:flex;flex-wrap:wrap;gap:6px}
+.ev{display:flex;flex-direction:column;align-items:center;gap:2px;width:74px;padding:6px 4px;border:1px solid var(--line);border-radius:14px;background:var(--card);color:var(--fg);font-size:11px}.ev img{width:48px;height:48px;object-fit:contain}.ev.on{border-color:var(--accent)}.ea{color:var(--muted)}
+.cmpw{grid-column:1/-1;min-width:0;max-width:100%}
+.sheet:has(.cmpw){padding:14px;gap:8px;max-height:calc(100dvh - 16px)}.modal:has(.cmpw){padding:8px}
+.cmpw h2{font-size:18px;margin:0 0 2px;padding-right:40px}.cmpw .meta{font-size:12px}
+.cin{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.cin .btn{margin:0;padding:8px 12px;font-size:14px}.cin input{flex:1;min-width:0;border:1px solid var(--line);border-radius:12px;padding:8px 10px;background:var(--bg);color:var(--fg);font:inherit;font-size:14px}
+.cmpv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:6px 0}.cp{text-align:center;min-width:0}
+.cmpw .cp .art{width:64px;height:64px;aspect-ratio:auto;max-height:none;border-radius:14px;margin:0 auto}
+.cp b{display:flex;justify-content:center;align-items:center;gap:5px;margin-top:4px;font-size:13px;overflow-wrap:anywhere}.cp b i{width:9px;height:9px;border-radius:50%;flex:none}.cp small{display:block;color:var(--muted);font-size:11px}
+.cmpw .note{font-size:12px;margin:0 0 4px}.cmpw .win{font-size:13px;margin:4px 0 8px;text-align:center}
+.cr{display:grid;grid-template-columns:1fr auto 1fr;gap:0 8px;align-items:baseline;margin-bottom:6px;font-size:13px}.cr>span{font-weight:600}.cr .z{text-align:right}.cr .w{color:var(--accent);font-weight:800}.cr .wb{color:#4f8cff;font-weight:800}.cr small{color:var(--muted);font-size:11px}
+.tw{grid-column:1/-1;height:5px;border-radius:99px;background:#4f8cff;overflow:hidden;margin-top:2px}.tw i{display:block;height:100%;background:var(--accent)}
+.cmpw .acts{margin-top:8px}.cmpw .acts .btn{padding:8px 14px;font-size:14px}
+.cmpbox{margin:12px 0;padding:14px;border:1px solid var(--line);border-radius:20px;background:var(--card);box-shadow:var(--sh)}.cmpbox h2{padding-right:0}.cmpbox .cin input{flex:1 1 110px}.cmpbox .cin .btn{flex:1 1 90px}
+.prog{display:flex;align-items:center;gap:12px;margin-top:16px;font-size:13px}.prog .ring{position:relative;width:64px;height:64px;flex:none}.prog svg{width:100%;height:100%;transform:rotate(-90deg)}.prog circle{fill:none;stroke-width:7}
+.prog .rt{stroke:rgba(255,255,255,.28)}.prog .rp{stroke:#fff;stroke-linecap:round;stroke-dasharray:163.4;stroke-dashoffset:163.4;transition:stroke-dashoffset .7s cubic-bezier(.2,.8,.2,1)}
+.prog .ring b{position:absolute;inset:0;display:grid;place-items:center;font-size:18px}.prog .pl{display:block;font-size:15px;font-weight:700}.prog #pt{display:block;opacity:.9}
+.pager{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px;margin:18px 0 8px}.pg{min-width:38px;height:38px;padding:0 10px;border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:12px;font-weight:600;font-size:14px}.pg.on{background:var(--accent);color:var(--on);border-color:var(--accent)}.pg:disabled{opacity:.4}.pe{color:var(--muted)}
+.pj{display:flex;gap:6px;flex-basis:100%;justify-content:center;margin-top:6px}.pj input{width:100px;height:38px;padding:0 10px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg);font:inherit;font-size:14px}#count{scroll-margin-top:84px}
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><radialGradient id="pbS" cx=".35" cy=".3" r=".85"><stop offset="0" stop-color="#fff" stop-opacity=".5"/><stop offset=".4" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".4"/></radialGradient><radialGradient id="pbB" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#c9cee3"/></radialGradient><radialGradient id="pbH"><stop offset="0" stop-color="#fff" stop-opacity=".95"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs></svg>
+<div class="scrim" id="scrim"></div><aside class="drawer" id="drawer" aria-label="Settings" aria-hidden="true" tabindex="-1"></aside>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="sheet" id="sheet"></div></div>
+<div class="wrap">
+<header><button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button><div class="logo">Cartoon<span>club</span></div><div class="hb"><button class="btn alt dxb" id="dxb" type="button"><svg class="pb" viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12a10.5 10.5 0 0 1 21 0z" fill="#e53935"/><path d="M1.5 12a10.5 10.5 0 0 0 21 0z" fill="#f4f5f9"/><path d="M1.5 12h21" stroke="#1c2140" stroke-width="2.4"/><circle cx="12" cy="12" r="4" fill="#1c2140"/><circle cx="12" cy="12" r="2.7" fill="url(#pbB)"/><circle cx="12" cy="12" r="10.5" fill="url(#pbS)"/><circle cx="12" cy="12" r="10.5" fill="none" stroke="#1c2140" stroke-width="1.1"/><ellipse cx="8" cy="6.2" rx="3.4" ry="1.9" transform="rotate(-35 8 6.2)" fill="url(#pbH)"/></svg>Pok&eacute;dex</button><button class="btn alt wlb" id="wlb" type="button"></button></div></header>
+<main>
+<div id="cat">
+<section class="hero" id="hero"><i></i><i></i><h1>Cartoon movies club</h1><p>Browse by genre, then tap any movie to read its summary.</p>
+<div class="sb"><input id="q" type="search" placeholder="Search movies" aria-label="Search movies" autocomplete="off"><button class="src" id="srcb" type="button" hidden></button></div><div class="prog" id="prog"><div class="ring"><svg viewBox="0 0 64 64" aria-hidden="true"><circle class="rt" cx="32" cy="32" r="26"/><circle class="rp" id="pr" cx="32" cy="32" r="26"/></svg><b id="pn">0</b></div><div><span class="pl">Watched movies</span><span id="pt" role="status">0 of 10 watched</span></div></div></section>
+<div class="chips" id="chips" role="group" aria-label="Genres"></div>
+<p class="note" id="count" role="status"></p>
+<div class="grid" id="grid"></div>
+<nav class="pager" id="pager" aria-label="Pages" hidden></nav>
+
+</div>
+<section class="dx" id="dex" hidden aria-label="Pok&eacute;dex"><div class="hero"><i></i><i></i><h1><svg class="pb" viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12a10.5 10.5 0 0 1 21 0z" fill="#e53935"/><path d="M1.5 12a10.5 10.5 0 0 0 21 0z" fill="#f4f5f9"/><path d="M1.5 12h21" stroke="#1c2140" stroke-width="2.4"/><circle cx="12" cy="12" r="4" fill="#1c2140"/><circle cx="12" cy="12" r="2.7" fill="url(#pbB)"/><circle cx="12" cy="12" r="10.5" fill="url(#pbS)"/><circle cx="12" cy="12" r="10.5" fill="none" stroke="#1c2140" stroke-width="1.1"/><ellipse cx="8" cy="6.2" rx="3.4" ry="1.9" transform="rotate(-35 8 6.2)" fill="url(#pbH)"/></svg>Pok&eacute;dex</h1><p>Search any Pok&eacute;mon by name or number, or browse 10 at a time.</p><div class="sb"><input id="dq" type="search" placeholder="Search, e.g. ditto" aria-label="Search Pok&eacute;mon" autocomplete="off"><button class="src" id="dgo" type="button">Search</button></div></div>
+<section class="cmpw cmpbox" id="cmpbox" aria-label="Compare Pok&eacute;mon"><h2>Compare two Pok&eacute;mon</h2><div class="cin"><input id="ca" placeholder="First, e.g. pikachu" aria-label="First Pok&eacute;mon" autocomplete="off"><input id="cb" placeholder="Second, e.g. raichu" aria-label="Second Pok&eacute;mon" autocomplete="off"><button class="btn" id="cgo" type="button">Compare</button><button class="btn alt" id="ccl" type="button">Cancel</button></div><div id="cres"></div></section>
+<div class="grid" id="dgrid"></div>
+<button class="btn alt more" id="dmore" hidden>Load more</button></section>
+</main>
+
+</div>
+<script>
+(function(){
+var $=function(i){return document.getElementById(i)};
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+var GEN=[["Action",1,28],["Adventure",2,12],["Comedy",4,35],["Drama",8,18],["Fantasy",10,14],["Mystery",7,9648],["Romance",22,10749],["Sci-Fi",24,878]],TG={16:"Animation",10751:"Family"};
+GEN.forEach(function(g){TG[g[2]]=g[0]});
+function gid(n,i){var g=GEN.filter(function(x){return x[0]===n})[0];return g&&g[i]}
+var L=[["Spirited Away",2001,"Studio Ghibli","Adventure,Fantasy","A ten-year-old girl stumbles into a hidden world of spirits and takes a job at a bathhouse to free her parents and find the way home."],
+["My Neighbor Totoro",1988,"Studio Ghibli","Fantasy,Adventure","Two sisters move to the countryside to be near their ailing mother and befriend the gentle, mysterious spirits of the nearby forest."],
+["Your Name",2016,"CoMix Wave Films","Romance,Fantasy,Drama","Two teenagers who have never met start swapping bodies in their dreams, then race against time to find each other."],
+["Princess Mononoke",1997,"Studio Ghibli","Action,Adventure,Fantasy","A young warrior cursed by a dying boar god travels west and is caught between the spirits of a forest and an iron-making town."],
+["Howl's Moving Castle",2004,"Studio Ghibli","Fantasy,Romance,Adventure","A girl turned into an old woman by a curse finds shelter in a wizard's walking castle and slowly uncovers its secrets."],
+["Kiki's Delivery Service",1989,"Studio Ghibli","Fantasy,Adventure","A young witch moves to a seaside town to start her own flying delivery business and learns to trust herself."],
+["Weathering with You",2019,"CoMix Wave Films","Romance,Fantasy,Drama","A runaway teenager meets a girl who can briefly clear the sky in a Tokyo where the rain never stops."],
+["Kung Fu Panda",2008,"DreamWorks","Action,Comedy,Adventure","A noodle-shop dreamer is unexpectedly chosen as the Dragon Warrior and must learn to fight to protect his valley."],
+["Shrek",2001,"DreamWorks","Comedy,Adventure,Fantasy","A grumpy ogre agrees to rescue a princess so he can have his swamp back, and finds friendship along the way."],
+["Despicable Me",2010,"Illumination","Comedy,Adventure","A supervillain plans the greatest heist in history until three orphan girls change his mind about family."],
+["Madagascar",2005,"DreamWorks","Comedy,Adventure","Pampered zoo animals from New York end up stranded on a wild island and discover what the real world is like."],
+["Toy Story",1995,"Pixar","Adventure,Comedy","A cowboy doll's place in a boy's room is threatened by a new space-ranger toy, until the two must work together to get home."],
+["Finding Nemo",2003,"Pixar","Adventure,Comedy","An anxious clownfish crosses the ocean to find his missing son, helped by a cheerful but forgetful friend."],
+["The Lion King",1994,"Disney","Drama,Adventure","A young lion prince runs away after a family tragedy, then must return to take his rightful place."],
+["Frozen",2013,"Disney","Fantasy,Adventure,Comedy","When a princess with icy powers accidentally traps her kingdom in winter, her sister sets out to bring her back."],
+["Coco",2017,"Pixar","Fantasy,Adventure,Drama","A boy who dreams of becoming a musician enters the Land of the Dead and uncovers the story behind his family's ban on music."],
+["WALL-E",2008,"Pixar","Sci-Fi,Adventure,Romance","A lonely robot left to clean up an abandoned Earth follows a visiting probe into space and ends up shaping humanity's future."],
+["Coraline",2009,"Laika","Fantasy,Mystery","A curious girl finds a hidden door to a mirror world where everything seems better, until its owner reveals her real plans."]];
+var LOCAL=L.map(function(a,i){return{id:"l"+i,title:a[0],year:a[1],studio:a[2],genres:a[3].split(","),summary:a[4],img:"",score:""}});
+function jget(u,h){return fetch(u,{headers:h||{}}).then(function(r){if(!r.ok){var e=new Error("HTTP "+r.status);e.status=r.status;throw e}return r.json()})}
+function jmap(a){var im=a.images&&a.images.jpg||{},f=a.aired&&a.aired.prop&&a.aired.prop.from;return{id:"j"+a.mal_id,title:a.title_english||a.title,year:a.year||(f&&f.year)||"",studio:a.studios&&a.studios[0]?a.studios[0].name:"",score:a.score||"",genres:(a.genres||[]).map(function(g){return g.name}),summary:a.synopsis||"No summary available.",img:im.large_image_url||im.image_url||""}}
+function tmap(m){return{id:"t"+m.id,title:m.title,year:(m.release_date||"").slice(0,4),studio:"",score:m.vote_average||"",genres:(m.genre_ids||[]).map(function(i){return TG[i]}).filter(Boolean),summary:m.overview||"No summary available.",img:m.poster_path?"https://image.tmdb.org/t/p/w342"+m.poster_path:""}}
+var CONFIG={src:"omdb",key:"",okey:"d6ce077a"}; /* Paste your OMDb key between the quotes after okey: */
+var PR={src:"local",mode:"auto",calm:false,key:"",okey:"d6ce077a"};try{Object.assign(PR,JSON.parse(localStorage.getItem("tc_prefs")||"{}"))}catch(e){}PR.src=CONFIG.src;PR.key=CONFIG.key;PR.okey=CONFIG.okey;
+var PROV={
+ local:{n:"Built-in list",d:"18 hand-picked movies. Works offline.",load:function(q,g,p){var s=q.toLowerCase(),a=LOCAL.filter(function(m){return(!g||m.genres.indexOf(g)>-1)&&(!s||(m.title+" "+m.studio).toLowerCase().indexOf(s)>-1)});return Promise.resolve({items:a.slice((p-1)*10,p*10),pages:Math.max(1,Math.ceil(a.length/10)),more:false})}},
+ jikan:{n:"Jikan (anime movies)",d:"Free, no key needed. Data from MyAnimeList.",load:function(q,g,p,top){var gi=g&&gid(g,1);return jget("https://api.jikan.moe/v4/anime?sfw=true&type=movie&order_by="+(top?"score&sort=desc&min_score=6.5&start_date=1990-01-01":"popularity&sort=asc")+"&limit=10&page="+p+(gi?"&genres="+gi:"")+(q?"&q="+encodeURIComponent(q):"")).then(function(d){return{items:(d.data||[]).map(jmap),more:!!(d.pagination&&d.pagination.has_next_page),pages:(d.pagination&&d.pagination.last_visible_page)||1}})}},
+ tmdb:{n:"TMDB (animated films)",d:"Free key needed. Western and world animation.",load:function(q,g,p,top){var k=(PR.key||"").trim();if(!k)return Promise.reject({nokey:1});var gi=g&&gid(g,2),b=k.length>40;
+  var u="https://api.themoviedb.org/3/"+(q?"search/movie?query="+encodeURIComponent(q):"discover/movie?sort_by="+(top?"vote_average.desc&vote_count.gte=500&vote_average.gte=6.5&primary_release_date.gte=1990-01-01":"popularity.desc")+"&with_genres="+(gi?"16,"+gi:16))+"&include_adult=false&language=en-US&page="+p+(b?"":"&api_key="+encodeURIComponent(k));
+  return jget(u,b?{Authorization:"Bearer "+k}:{}).then(function(d){var r=d.results||[];if(q)r=r.filter(function(m){var i=m.genre_ids||[];return i.indexOf(16)>-1&&(!gi||i.indexOf(gi)>-1)});return{items:r.map(tmap),more:p<(d.total_pages||1),pages:Math.min(d.total_pages||1,500)}})}}};
+var XS="Snow White and the Seven Dwarfs|1937;Pinocchio|1940;Fantasia|1940;Dumbo|1941;Bambi|1942;Cinderella|1950;Alice in Wonderland|1951;Peter Pan|1953;Lady and the Tramp|1955;Sleeping Beauty|1959;One Hundred and One Dalmatians|1961;The Sword in the Stone|1963;The Jungle Book|1967;The Aristocats|1970;Robin Hood|1973;The Rescuers|1977;The Fox and the Hound|1981;The Black Cauldron|1985;The Great Mouse Detective|1986;Oliver & Company|1988;The Little Mermaid|1989;Beauty and the Beast|1991;Pocahontas|1995;The Hunchback of Notre Dame|1996;Hercules|1997;Mulan|1998;Tarzan|1999;The Emperor's New Groove|2000;Atlantis: The Lost Empire|2001;Lilo & Stitch|2002;Treasure Planet|2002;Brother Bear|2003;Chicken Little|2005;Meet the Robinsons|2007;Bolt|2008;The Princess and the Frog|2009;Wreck-It Ralph|2012;Raya and the Last Dragon|2021;Strange World|2022;Wish|2023;Moana 2|2024;A Bug's Life|1998;Toy Story 2|1999;Toy Story 3|2010;Cars|2006;Cars 2|2011;Brave|2012;Monsters University|2013;The Good Dinosaur|2015;Finding Dory|2016;Cars 3|2017;Incredibles 2|2018;Toy Story 4|2019;Onward|2020;Luca|2021;Turning Red|2022;Lightyear|2022;Elemental|2023;Inside Out 2|2024;Antz|1998;The Prince of Egypt|1998;Chicken Run|2000;The Road to El Dorado|2000;Spirit: Stallion of the Cimarron|2002;Sinbad: Legend of the Seven Seas|2003;Shrek 2|2004;Shark Tale|2004;Madagascar: Escape 2 Africa|2008;Madagascar 3: Europe's Most Wanted|2012;Over the Hedge|2006;Flushed Away|2006;Bee Movie|2007;Shrek the Third|2007;Monsters vs. Aliens|2009;Megamind|2010;Shrek Forever After|2010;Kung Fu Panda 2|2011;Kung Fu Panda 3|2016;Kung Fu Panda 4|2024;Puss in Boots|2011;Rise of the Guardians|2012;The Croods|2013;Turbo|2013;Mr. Peabody & Sherman|2014;How to Train Your Dragon 2|2014;How to Train Your Dragon: The Hidden World|2019;Home|2015;Trolls|2016;Trolls World Tour|2020;The Boss Baby|2017;Captain Underpants: The First Epic Movie|2017;Abominable|2019;The Croods: A New Age|2020;The Bad Guys|2022;Puss in Boots: The Last Wish|2022;The Wild Robot|2024;Despicable Me 2|2013;Despicable Me 3|2017;Despicable Me 4|2024;Minions|2015;Minions: The Rise of Gru|2022;The Secret Life of Pets|2016;The Secret Life of Pets 2|2019;Sing|2016;Sing 2|2021;The Lorax|2012;The Grinch|2018;The Super Mario Bros. Movie|2023;Migration|2023;Robots|2005;Ice Age: The Meltdown|2006;Ice Age: Dawn of the Dinosaurs|2009;Horton Hears a Who!|2008;Rio|2011;Rio 2|2014;Epic|2013;The Peanuts Movie|2015;Ferdinand|2017;Spies in Disguise|2019;Cloudy with a Chance of Meatballs|2009;Hotel Transylvania|2012;Hotel Transylvania 2|2015;Open Season|2006;Surf's Up|2007;The Mitchells vs. the Machines|2021;Spider-Man: Across the Spider-Verse|2023;Vivo|2021;Arthur Christmas|2011;The Angry Birds Movie|2016;Happy Feet|2006;Planes|2013;Smallfoot|2018;The Lego Movie|2014;The Lego Batman Movie|2017;Storks|2016;Gnomeo & Juliet|2011;Cloudy with a Chance of Meatballs 2|2013;Monster House|2006;The Polar Express|2004;Kubo and the Two Strings|2016;ParaNorman|2012;The Boxtrolls|2014;Missing Link|2019;Chicken Run: Dawn of the Nugget|2023;Wallace & Gromit: The Curse of the Were-Rabbit|2005;Shaun the Sheep Movie|2015;Early Man|2018;The Nightmare Before Christmas|1993;James and the Giant Peach|1996;Corpse Bride|2005;Fantastic Mr. Fox|2009;Isle of Dogs|2018;Anomalisa|2015;Persepolis|2007;Waltz with Bashir|2008;Loving Vincent|2017;The Secret of Kells|2009;Song of the Sea|2014;Wolfwalkers|2020;The Breadwinner|2017;Klaus|2019;The Triplets of Belleville|2003;Ernest & Celestine|2012;The Tale of the Princess Kaguya|2013;A Cat in Paris|2010;Rango|2011;Mary and Max|2009;The Illusionist|2010;My Life as a Zucchini|2016;The Little Prince|2015;Guillermo del Toro's Pinocchio|2022;Marcel the Shell with Shoes On|2021;Nimona|2023;Robot Dreams|2023;Flow|2024;The Land Before Time|1988;An American Tail|1986;All Dogs Go to Heaven|1989;Balto|1995;Anastasia|1997;Cats Don't Dance|1997;The Swan Princess|1994;Quest for Camelot|1998;Titan A.E.|2000;Yellow Submarine|1968;Watership Down|1978;Fantastic Planet|1973;Heavy Metal|1981;Sita Sings the Blues|2008;Castle in the Sky|1986;Nausicaä of the Valley of the Wind|1984;Grave of the Fireflies|1988;Only Yesterday|1991;Porco Rosso|1992;Pom Poko|1994;Whisper of the Heart|1995;The Cat Returns|2002;Tales from Earthsea|2006;Arrietty|2010;From Up on Poppy Hill|2011;The Wind Rises|2013;When Marnie Was There|2014;The Red Turtle|2016;The Boy and the Heron|2023;Ghost in the Shell|1995;Perfect Blue|1997;Millennium Actress|2001;Tokyo Godfathers|2003;Paprika|2006;The Girl Who Leapt Through Time|2006;Summer Wars|2009;Wolf Children|2012;The Boy and the Beast|2015;Mirai|2018;A Silent Voice|2016;5 Centimeters per Second|2007;The Garden of Words|2013;Suzume|2022;Belle|2021;Metropolis|2001;Redline|2009;One Piece Film: Red|2022;Jujutsu Kaisen 0|2021;Violet Evergarden: The Movie|2020;I Want to Eat Your Pancreas|2018;Josee, the Tiger and the Fish|2020;Children Who Chase Lost Voices|2011;Vampire Hunter D: Bloodlust|2000;Ninja Scroll|1993;Appleseed|2004;Cowboy Bebop: The Movie|2001;Fullmetal Alchemist: The Conqueror of Shamballa|2005;Frozen II|2019;Ralph Breaks the Internet|2018;The Rescuers Down Under|1990;Winnie the Pooh|2011;Fantasia 2000|1999;Trolls Band Together|2023;Ruby Gillman, Teenage Kraken|2023;Ice Age: Continental Drift|2012;Ice Age: Collision Course|2016;Hotel Transylvania 3: Summer Vacation|2018;The Emoji Movie|2017;Sherlock Gnomes|2018;The Addams Family|2019;The Willoughbys|2020;Over the Moon|2020;Spirit Untamed|2021;Ron's Gone Wrong|2021;Leo|2023";
+var OS=L.map(function(a){return[a[0],a[1]]}).concat([["Akira",1988],["Ratatouille",2007],["Moana",2016],["Zootopia",2016],["Up",2009],["Inside Out",2015],["The Incredibles",2004],["Monsters, Inc.",2001],["How to Train Your Dragon",2010],["Ice Age",2002],["Spider-Man: Into the Spider-Verse",2018],["Encanto",2021],["Soul",2020],["Ponyo",2008],["Tangled",2010],["Aladdin",1992],["The Iron Giant",1999],["Big Hero 6",2014]]).concat(XS.split(";").map(function(r){r=r.split("|");return[r[0],+r[1]]})),OC={};try{OC=JSON.parse(localStorage.getItem("tc_oc")||"{}")}catch(e){}
+function nz(t){return String(t).toLowerCase().replace(/['\u2019]/g,"").replace(/[^a-z0-9]+/g," ").trim()}
+var TOPT="spirited away|grave of the fireflies|your name|spider man into the spider verse|coco|wall e|up|toy story 3|princess mononoke|the lion king|inside out|finding nemo|howls moving castle|akira|ratatouille|the incredibles|toy story|my neighbor totoro|how to train your dragon|monsters inc|the iron giant|coraline|klaus|ponyo|soul|zootopia|moana|big hero 6|tangled|beauty and the beast|aladdin|kubo and the two strings|isle of dogs|fantastic mr fox|a silent voice|perfect blue|persepolis|loving vincent|the wind rises|castle in the sky|kikis delivery service|mary and max".split("|");
+var OSTOP=(function(){var m={},u={},a=[];OS.forEach(function(x){if(x[1]>=1990)m[nz(x[0])]=x});TOPT.forEach(function(t){if(m[t]&&!u[t]){u[t]=1;a.push(m[t])}});return a.concat(OS.filter(function(x){return x[1]>=1990&&!u[nz(x[0])]}))})();
+function topSort(a){a.sort(function(x,y){return(+y.score||0)-(+x.score||0)})}
+var oct;function ocSave(){clearTimeout(oct);oct=setTimeout(function(){try{localStorage.setItem("tc_oc",JSON.stringify(OC))}catch(e){}},600)}
+function oget(q){var k=(PR.okey||"").trim();return fetch("https://www.omdbapi.com/?apikey="+encodeURIComponent(k)+"&"+q).then(function(r){return r.json().catch(function(){return{Response:"False",Error:"HTTP "+r.status}})}).then(function(d){if(d.Response==="False"){var e=new Error(d.Error);e.omdb=d.Error||"";throw e}return d})}
+function na(v){return v&&v!=="N/A"?v:""}
+function omap(d){return{id:"o"+d.imdbID,title:d.Title,year:na(d.Year),studio:na(d.Director)?"Dir. "+d.Director.split(",")[0]:"",score:na(d.imdbRating),genres:na(d.Genre)?d.Genre.split(", "):[],summary:na(d.Plot)||"No summary available.",img:na(d.Poster).replace(/^http:/,"https:")}}
+function odet(q){if(q in OC)return Promise.resolve(OC[q]);return oget(q+"&type=movie&plot=full").then(function(d){OC[q]=omap(d);ocSave();return OC[q]},function(e){if(e.omdb==="Movie not found!"){OC[q]=null;ocSave();return null}throw e})}
+PROV.omdb={n:"OMDb (posters and plots)",d:"Free key needed. About 280 animated movies with posters and plots.",test:function(){return oget("t=Shrek")},
+ load:function(q,g,p,top){if(!(PR.okey||"").trim())return Promise.reject({nokey:1});var keep=function(m){return m&&(!g||m.genres.indexOf(g)>-1)};
+  if(q)return oget("s="+encodeURIComponent(q)+"&type=movie&page="+p).catch(function(e){if(e.omdb==="Movie not found!"||e.omdb==="Too many results.")return{Search:[],totalResults:0};throw e}).then(function(d){return Promise.all((d.Search||[]).map(function(x){return odet("i="+x.imdbID)})).then(function(a){return{items:a.filter(function(m){return keep(m)&&m.genres.indexOf("Animation")>-1}),more:p*10<(+d.totalResults||0),pages:Math.ceil((+d.totalResults||0)/10)}})});
+  var P=top?OSTOP:OS;return Promise.all(P.slice((p-1)*10,p*10).map(function(x){return odet("t="+encodeURIComponent(x[0])+"&y="+x[1])})).then(function(a){return{items:a.filter(keep),more:p*10<P.length,pages:Math.ceil(P.length/10)}})}};
+PROV.tmdb.test=function(){return PROV.tmdb.load("","",1)};
+if(!PROV[PR.src])PR.src="local";
+function applyPrefs(){var r=document.documentElement;r.dataset.mode=PR.mode;if(PR.calm)r.dataset.calm="1";else delete r.dataset.calm;try{localStorage.setItem("tc_prefs",JSON.stringify(PR))}catch(e){}}
+function errText(e){var n=PR.src==="omdb"?"OMDb":"TMDB",o=e&&e.omdb||"";return e&&e.nokey?n+" needs an API key. Add it to CONFIG at the top of the script.":e&&(e.status===401||e.status===403||/invalid api key/i.test(o))?"The "+n+" key was rejected. Check it in the menu.":e&&(e.status===429||/limit/i.test(o))?"Request limit reached for "+n+". Wait a while and try again.":"Could not load movies. Check your connection and try again."}
+function hue(m){return(m.title.charCodeAt(0)*37+m.title.length*53)%360}
+var S={q:"",g:"",top:false,pages:1,p:1,items:[],more:false,busy:false,err:null,tok:0};
+function wlBtn(m,i){var on=wlIdx(m)>-1;return'<button class="wl" data-w="'+i+'" aria-pressed="'+on+'" aria-label="'+(on?'Remove '+esc(m.title)+' from watchlist':'Add '+esc(m.title)+' to watchlist')+'">'+(on?"\ud83e\udde0":"\ud83e\udde0")+'</button>'}
+function card(m,i){return'<div class="cw'+(i===0&&!S.wl?' big':'')+'"><button class="mc" data-i="'+i+'" style="--i:'+Math.min(i,12)+';--h:'+hue(m)+'"><span class="art">'+(m.img?'<img src="'+esc(m.img)+'" alt="" loading="lazy" onerror="this.remove()">':'<b></b><b></b><em aria-hidden="true">'+esc(m.title.charAt(0))+'</em>')+'</span><span class="mi">'+(m.score?'<span class="sc">\u2605 '+(+m.score).toFixed(1)+'</span>':'')+'<b>'+esc(m.title)+'</b><small>'+[m.year,m.studio].filter(Boolean).map(esc).join(" \u00b7 ")+'</small></span></button>'+wlBtn(m,i)+'</div>'}
+function draw(){var h="",i;$("srcb").textContent="Source: "+PROV[PR.src].n+" \u25BE";
+ if(S.wl)h=WL.length?WL.map(card).join(""):'<div class="msg"><p>Your watchlist is empty. Tap the brain button on any movie to save it here.</p><button class="btn" data-a="back">Browse movies</button></div>';
+ else if(S.busy&&!S.items.length)for(i=0;i<8;i++)h+='<div class="sk" style="--i:'+i+'"></div>';
+ else if(S.err)h='<div class="msg"><p>'+esc(errText(S.err))+'</p>'+(S.err.nokey?'':'<button class="btn" data-a="retry">Try again</button>')+'</div>';
+ else if(!S.items.length)h='<div class="msg">No movies found. '+(S.pages>1?"Try another page, genre or search.":"Try another genre or search.")+'</div>';
+ else h=S.items.map(card).join("");
+ $("grid").innerHTML=h;$("count").textContent=S.wl?(WL.length?"Watchlist: "+WL.length+" movie"+(WL.length>1?"s":""):""):S.items.length&&!S.err?(S.g?S.g+": ":"")+S.items.length+" movies"+(S.pages>1?" \u00b7 page "+S.p+" of "+S.pages:""):"";
+ pagerDraw()}
+function load(pg){var t=++S.tok;S.p=pg||1;S.items=[];S.busy=true;S.err=null;draw();
+ PROV[PR.src].load(S.q,S.g,S.p,S.top).then(function(r){if(t!==S.tok)return;var hv={},nw=r.items.filter(function(m){if(hv[m.id])return false;if(S.top){if(PR.src!=="local"&&!(+m.score>=6.5))return false;if(+m.year&&+m.year<1990)return false}hv[m.id]=1;return true});if(S.top)topSort(nw);S.items=nw;S.pages=Math.max(1,r.pages||1);S.busy=false;draw()}).catch(function(e){if(t!==S.tok)return;S.busy=false;S.err=e;draw()})}
+function pagerDraw(){var el=$("pager"),n=S.pages,p=S.p,pg=[1,n],i,h,last=0;if(S.wl||S.err||n<2){el.hidden=true;return}
+ for(i=p-1;i<=p+1;i++)if(i>1&&i<n)pg.push(i);pg=pg.filter(function(v,k,a){return a.indexOf(v)===k}).sort(function(a,b){return a-b});
+ h='<button class="pg" data-p="'+(p-1)+'"'+(p<2?" disabled":"")+' aria-label="Previous page">\u2039</button>';
+ pg.forEach(function(v){if(last&&v-last>1)h+='<span class="pe">\u2026</span>';h+='<button class="pg'+(v===p?" on":"")+'" data-p="'+v+'"'+(v===p?' aria-current="page"':"")+'>'+v+'</button>';last=v});
+ h+='<button class="pg" data-p="'+(p+1)+'"'+(p>=n?" disabled":"")+' aria-label="Next page">\u203a</button><span class="pj"><input id="pj" type="number" inputmode="numeric" min="1" max="'+n+'" placeholder="Page no." aria-label="Jump to page"><button class="pg" data-j="1">Go</button></span>';
+ el.innerHTML=h;el.hidden=false}
+function goPage(n){load(n);$("count").scrollIntoView()}
+var WL=[],cur,undoM,undoAt,tt;try{WL=JSON.parse(localStorage.getItem("tc_wl")||"[]");if(!Array.isArray(WL))WL=[]}catch(e){WL=[]}
+function wlSave(){try{localStorage.setItem("tc_wl",JSON.stringify(WL))}catch(e){}}
+function wlIdx(m){for(var i=0;i<WL.length;i++)if(WL[i].id===m.id)return i;return-1}
+function list(){return S.wl?WL:S.items}
+function mbtn(m){var on=wlIdx(m)>-1;return'<button class="btn'+(on?' alt':'')+'" data-a="wl">'+(on?"\ud83e\udde0 Remove from watchlist":"\ud83e\udde0 Add to watchlist")+'</button>'}
+function wlLabel(){$("wlb").innerHTML=S.wl?"\u2190 Catalogue":'\ud83e\udde0 Watchlist <span class="n">'+WL.length+'</span>'}
+function wlSync(){wlLabel();var mb=$("sheet").querySelector("[data-a=wl]");if(mb&&cur){var on=wlIdx(cur)>-1;mb.className="btn"+(on?" alt":"");mb.textContent=on?"\ud83e\udde0 Remove from watchlist":"\ud83e\udde0 Add to watchlist"}
+ if(S.wl){draw();return}
+ [].forEach.call(document.querySelectorAll("#grid .wl"),function(b){var m=S.items[+b.dataset.w];if(!m)return;var on=wlIdx(m)>-1;b.setAttribute("aria-pressed",on);b.setAttribute("aria-label",(on?"Remove ":"Add ")+m.title+(on?" from":" to")+" watchlist");b.textContent=on?"\ud83e\udde0":"\ud83e\udde0"})}
+function wlToggle(m){var i=wlIdx(m);if(i>-1)WL.splice(i,1);else WL.push(m);wlSave();wlSync()}
+function setWl(v){S.wl=v;$("hero").hidden=v;$("chips").hidden=v;wlLabel();draw();window.scrollTo(0,0)}
+$("wlb").onclick=function(){var d=DX;if(d)setDex(false);setWl(d?true:!S.wl)};
+var SEEN={},GOALS=[10,25,50,100,250,500];try{SEEN=JSON.parse(localStorage.getItem("tc_seen")||"{}");if(!SEEN||typeof SEEN!=="object"||Array.isArray(SEEN))SEEN={}}catch(e){SEEN={}}
+function goalFor(n){for(var i=0;i<GOALS.length;i++)if(n<GOALS[i])return GOALS[i];return n}
+function progUpdate(){var n=Object.keys(SEEN).length,g=goalFor(n);$("pn").textContent=n;$("pr").style.strokeDashoffset=163.4*(1-Math.min(1,n/g));$("pt").textContent=n>=GOALS[GOALS.length-1]?n+" watched. Movie legend!":n+" of "+g+" watched"+(n?"":" \u00b7 tap Mark as watched on any movie")}
+function sbtn(m){var on=!!SEEN[m.id];return'<button class="btn'+(on?"":" alt")+'" data-a="seen" aria-pressed="'+on+'">'+(on?"\u2713 Watched":"Mark as watched")+'</button>'}
+function seenToggle(m){if(!m)return;if(SEEN[m.id])delete SEEN[m.id];else SEEN[m.id]=1;try{localStorage.setItem("tc_seen",JSON.stringify(SEEN))}catch(e){}var b=$("sheet").querySelector("[data-a=seen]");if(b){var on=!!SEEN[m.id];b.className="btn"+(on?"":" alt");b.setAttribute("aria-pressed",on);b.textContent=on?"\u2713 Watched":"Mark as watched"}progUpdate()}
+var last;
+function openM(m){cur=m;last=document.activeElement;var im=m.img?'<img src="'+esc(m.img)+'" alt="" onerror="this.remove()">':'<b></b><em aria-hidden="true">'+esc(m.title.charAt(0))+'</em>';
+ $("sheet").innerHTML='<button class="x" data-a="close" aria-label="Close summary">&times;</button><div class="art" style="--h:'+hue(m)+'">'+im+'</div><div><h2 id="mt">'+esc(m.title)+'</h2><div class="meta">'+[m.year,m.studio,m.score?'\u2605 '+(+m.score).toFixed(1):""].filter(Boolean).map(esc).join(" \u00b7 ")+'</div><div class="tags">'+m.genres.map(function(g){return'<span class="tag">'+esc(g)+'</span>'}).join("")+'</div><h3>Summary</h3><p>'+esc(m.summary)+'</p><div class="acts">'+mbtn(m)+sbtn(m)+'<button class="btn alt" data-a="close">Cancel</button></div></div>';
+ $("modal").classList.add("show");$("sheet").querySelector(".x").focus()}
+function closeM(){$("modal").classList.remove("show");if(last&&last.focus)last.focus()}
+function drawDrawer(){var tm=PR.src==="tmdb"||PR.src==="omdb",om=PR.src==="omdb",kv=om?PR.okey:PR.key,nm=om?"OMDb":"TMDB";
+ $("drawer").innerHTML='<div class="dh"><b>Settings</b><button class="x" data-m="close" aria-label="Close menu">&times;</button></div>'+'<div class="dsec">Appearance</div><div class="seg">'+["auto","light","dark"].map(function(v){return'<button data-m="mode" data-v="'+v+'" aria-pressed="'+(PR.mode===v)+'">'+v.charAt(0).toUpperCase()+v.slice(1)+'</button>'}).join("")+'</div><button class="di" data-m="calm" aria-pressed="'+!!PR.calm+'">Reduce motion<span class="tg"></span></button>'}
+function drawer(o){var d=$("drawer");if(o)drawDrawer();d.classList.toggle("open",o);$("scrim").classList.toggle("show",o);d.setAttribute("aria-hidden",!o);$("burger").setAttribute("aria-expanded",o);if(o)d.focus();else $("burger").focus()}
+function refocus(q){var e=$("drawer").querySelector(q);if(e)e.focus()}
+$("burger").onclick=function(){drawer(true)};$("srcb").onclick=function(){drawer(true)};$("scrim").onclick=function(){drawer(false)};
+$("drawer").onclick=function(e){var b=e.target.closest("[data-m]");if(!b)return;var m=b.dataset.m;
+ if(m==="close")drawer(false);
+ else if(m==="src"){PR.src=b.dataset.v;applyPrefs();S.tok++;load();if(PR.src==="tmdb"||PR.src==="omdb"){drawDrawer();refocus('[data-v="'+PR.src+'"]')}else drawer(false)}
+ else if(m==="key"){var v=$("key").value.trim(),mm=v.match(/apikey=([^&\s"']+)/i);if(mm)v=mm[1];v=v.replace(/^["'\s]+|["'\s]+$/g,"");$("key").value=v;PR[PR.src==="omdb"?"okey":"key"]=v;applyPrefs();$("ks").textContent="Testing your key...";PROV[PR.src].test().then(function(){drawer(false);load()}).catch(function(x){$("ks").textContent=errText(x)+(PR.src==="omdb"&&x&&x.omdb?" You entered "+v.length+" characters. OMDb keys are usually 8 characters, like ab12c345. If the key is new, activate it with the link in OMDb's email first.":"")})}
+ else if(m==="mode"){PR.mode=b.dataset.v;applyPrefs();drawDrawer();refocus('[data-v="'+PR.mode+'"][data-m="mode"]')}
+ else if(m==="calm"){PR.calm=!PR.calm;applyPrefs();drawDrawer();refocus('[data-m="calm"]')}};
+$("grid").onclick=function(e){var b=e.target.closest("button");if(!b)return;if(b.dataset.w!=null)wlToggle(list()[+b.dataset.w]);else if(b.dataset.i!=null)openM(list()[+b.dataset.i]);else if(b.dataset.a==="back")setWl(false);else if(b.dataset.a==="retry")load(S.p);else if(b.dataset.a==="menu")drawer(true)};
+$("pager").onclick=function(e){var b=e.target.closest("button");if(!b||b.disabled)return;var n;if(b.dataset.j){n=parseInt($("pj").value,10);if(!n)return;n=Math.max(1,Math.min(S.pages,n))}else n=+b.dataset.p;if(n&&n!==S.p)goPage(n)};
+$("pager").onkeydown=function(e){if(e.key==="Enter"&&e.target.id==="pj")$("pager").querySelector("[data-j]").click()};
+$("modal").onclick=function(e){var dv=e.target.closest("[data-d]");if(dv){openD(+dv.dataset.d);return}var ac=e.target.closest("[data-a]");ac=ac&&ac.dataset.a;if(ac==="cmp"){if(DL)cmpFrom(DL);return}if(ac==="seen"){seenToggle(cur);return}if(e.target.closest("[data-a=wl]")){wlToggle(cur);return}if(e.target===$("modal")||e.target.closest("[data-a=close]"))closeM()};
+$("chips").innerHTML=[["All"]].concat(GEN).map(function(g,i){var v=i?g[0]:"";return'<button class="chip" data-g="'+v+'" aria-pressed="'+(S.g===v)+'">'+g[0]+'</button>'}).join("");
+$("chips").children[0].insertAdjacentHTML("afterend",'<button class="chip" data-top="1" aria-pressed="'+S.top+'">\u2605 Top rated</button>');
+$("chips").onclick=function(e){var b=e.target.closest(".chip");if(!b)return;if(b.dataset.top)S.top=!S.top;else S.g=b.dataset.g;[].forEach.call($("chips").children,function(c){c.setAttribute("aria-pressed",c.dataset.top?S.top:c.dataset.g===S.g)});load()};
+var tm;$("q").oninput=function(){S.q=this.value.trim();clearTimeout(tm);tm=setTimeout(load,PR.src==="local"?0:400)};
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){if($("modal").classList.contains("show"))closeM();else if($("drawer").classList.contains("open"))drawer(false)}});
+var PB='<svg class="pb" viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12a10.5 10.5 0 0 1 21 0z" fill="#e53935"/><path d="M1.5 12a10.5 10.5 0 0 0 21 0z" fill="#f4f5f9"/><path d="M1.5 12h21" stroke="#1c2140" stroke-width="2.4"/><circle cx="12" cy="12" r="4" fill="#1c2140"/><circle cx="12" cy="12" r="2.7" fill="url(#pbB)"/><circle cx="12" cy="12" r="10.5" fill="url(#pbS)"/><circle cx="12" cy="12" r="10.5" fill="none" stroke="#1c2140" stroke-width="1.1"/><ellipse cx="8" cy="6.2" rx="3.4" ry="1.9" transform="rotate(-35 8 6.2)" fill="url(#pbH)"/></svg>',DX=false,D={q:"",raw:"",note:"",off:0,items:[],more:false,busy:false,err:null,tok:0,dt:0},PAPI="https://pokeapi.co/api/v2/pokemon";
+function pname(s){return String(s||"").replace(/-/g," ").replace(/(^|\s)\S/g,function(c){return c.toUpperCase()})}
+function pimg(id){return"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/"+id+".png"}
+function ptag(id){return'<img src="'+pimg(id)+'" alt="" loading="lazy">'}
+function animImg(d,im){return'<img src="'+esc(im)+'" alt="">'}
+function imgFb(e){var t=e.target;if(!t||t.tagName!=="IMG")return;var f=t.dataset.fb;if(f){delete t.dataset.fb;t.classList.remove("gif");t.classList.add("idle");t.src=f}else t.remove()}
+function pid(n){return"#"+String(n).padStart(3,"0")}
+function dcard(p,i){return'<div class="cw"><button class="mc" data-d="'+p.id+'" style="--i:'+Math.min(i,12)+';--h:'+(p.id*47%360)+'"><span class="art">'+ptag(p.id)+'</span><span class="mi"><b>'+esc(pname(p.name))+'</b><small>'+pid(p.id)+'</small></span></button></div>'}
+function dexDraw(){var h="",i;
+ if(D.busy&&!D.items.length)for(i=0;i<8;i++)h+='<div class="sk" style="--i:'+i+'"></div>';
+ else if(D.err)h='<div class="msg"><p>'+esc(D.err)+'</p><button class="btn" data-a="dretry">Try again</button></div>';
+ else if(!D.items.length)h='<div class="msg">No Pok\u00e9mon found.</div>';
+ else h=(D.note?'<p class="note dn">'+esc(D.note)+'</p>':"")+D.items.map(dcard).join("");
+ $("dgrid").innerHTML=h;$("dmore").hidden=!(D.more||(D.busy&&D.items.length));$("dmore").disabled=D.busy;$("dmore").textContent=D.busy?"Loading...":"Load more"}
+function dexLoad(more){var t=++D.tok;if(more)D.off+=10;else{D.off=0;D.items=[];D.note=""}D.busy=true;D.err=null;dexDraw();
+ var req=D.q?dexFind(D.q):jget(PAPI+"?limit=10&offset="+D.off).then(function(d){return{items:(d.results||[]).map(function(x){var m=/\/pokemon\/(\d+)/.exec(x.url||"");return{id:m?+m[1]:0,name:x.name}}),more:!!d.next}});
+ req.then(function(r){if(t!==D.tok)return;D.items=D.items.concat(r.items);D.more=r.more;D.note=r.note||"";D.busy=false;dexDraw()}).catch(function(e){if(t!==D.tok)return;D.busy=false;D.more=false;D.err=e&&e.status===404?"No Pok\u00e9mon found for \u201c"+(D.raw||D.q)+"\u201d. Try a name like ditto or a number.":"Could not load Pok\u00e9mon. Check your connection and try again.";if(more)D.off-=10;dexDraw()})}
+var PN=null;
+function dexNames(){return PN?Promise.resolve(PN):jget(PAPI+"?limit=2000").then(function(d){PN=(d.results||[]).map(function(x){var m=/\/pokemon\/(\d+)/.exec(x.url||"");return{id:m?+m[1]:0,name:x.name}});return PN})}
+function dexDist(a,b,max){var al=a.length,bl=b.length,d=[],i,j,c;if(Math.abs(al-bl)>max)return max+1;
+ for(i=0;i<=al;i++)d[i]=[i];for(j=1;j<=bl;j++)d[0][j]=j;
+ for(i=1;i<=al;i++)for(j=1;j<=bl;j++){c=a.charAt(i-1)===b.charAt(j-1)?0:1;d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+c);if(i>1&&j>1&&a.charAt(i-1)===b.charAt(j-2)&&a.charAt(i-2)===b.charAt(j-1))d[i][j]=Math.min(d[i][j],d[i-2][j-2]+1)}
+ return d[al][bl]}
+function dexFind(q){var one=function(){return jget(PAPI+"/"+encodeURIComponent(q)).then(function(d){return{items:[{id:d.id,name:d.name}],more:false}})};
+ if(/^\d+$/.test(q))return one();
+ return dexNames().catch(function(){return null}).then(function(all){if(!all)return one();
+  var ex=all.filter(function(p){return p.name===q});if(ex.length)return{items:ex,more:false};
+  var pm=all.filter(function(p){return p.name.indexOf(q)>-1}).sort(function(a,b){return(a.name.indexOf(q)>0)-(b.name.indexOf(q)>0)});if(pm.length)return{items:pm.slice(0,10),more:false};
+  var max=Math.max(1,Math.floor(q.length/3)),best=max+1,hits=[];
+  all.forEach(function(p){var d=dexDist(q,p.name,max);if(d<best){best=d;hits=[p]}else if(d===best&&d<=max)hits.push(p)});
+  if(!hits.length)return Promise.reject({status:404});hits=hits.slice(0,5);
+  return{items:hits,more:false,note:"No exact match for \u201c"+D.raw+"\u201d. Showing the closest: "+hits.map(function(p){return pname(p.name)}).join(", ")+"."}})}
+function dexSearch(){D.raw=$("dq").value.trim();D.q=D.raw.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[.'\u2019]/g,"").replace(/\s+/g,"-");dexLoad()}
+function setDex(v){DX=v;$("cat").hidden=v;$("dex").hidden=!v;$("dxb").innerHTML=v?"\u2190 Catalogue":PB+"Pok\u00e9dex";if(v)dexNames().catch(function(){});if(v&&!D.items.length&&!D.busy)dexLoad();window.scrollTo(0,0)}
+function openD(id){var t=++D.dt;if(!$("modal").classList.contains("show"))last=document.activeElement;var x='<button class="x" data-a="close" aria-label="Close details">&times;</button>';
+ $("sheet").innerHTML=x+'<div class="art dxart" style="--h:'+(id*47%360)+'"></div><div><h2 id="mt">Loading...</h2></div>';$("modal").classList.add("show");$("sheet").querySelector(".x").focus();
+ jget(PAPI+"/"+id).then(function(d){if(t!==D.dt)return;var o=d.sprites&&d.sprites.other&&d.sprites.other["official-artwork"],im=o&&o.front_default||pimg(d.id);
+  var ty=(d.types||[]).map(function(a){return'<span class="tag">'+esc(pname(a.type.name))+'</span>'}).join(""),ab=(d.abilities||[]).map(function(a){return esc(pname(a.ability.name))+(a.is_hidden?" (hidden)":"")}).join(", ");
+  var bars=(d.stats||[]).map(function(a){var n=a.stat.name==="hp"?"HP":pname(a.stat.name).replace("Special ","Sp. ");return'<div class="stat"><span>'+esc(n)+'</span><b>'+a.base_stat+'</b><div class="bar"><i style="width:'+Math.min(100,Math.round(a.base_stat/1.6))+'%"></i></div></div>'}).join("");
+  $("sheet").innerHTML=x+'<div class="art dxart" style="--h:'+(d.id*47%360)+'">'+animImg(d,im)+'</div><div><h2 id="mt">'+esc(pname(d.name))+'</h2><div class="meta">'+pid(d.id)+' \u00b7 '+d.height/10+' m \u00b7 '+d.weight/10+' kg</div><div class="tags">'+ty+'</div><h3>Abilities</h3><p>'+(ab||"None")+'</p><h3>Base stats</h3>'+bars+'<h3>Evolution</h3><div class="evo" id="evo"><span class="meta">Loading...</span></div><div class="acts"><button class="btn" data-a="cmp">Compare</button><button class="btn alt" data-a="close">Close</button></div></div>';DL=d;$("sheet").querySelector(".x").focus();var sm=/species\/(\d+)/.exec(d.species&&d.species.url||"");evoLoad(sm?+sm[1]:d.id,t)
+ }).catch(function(){if(t!==D.dt)return;$("sheet").innerHTML=x+'<div class="art dxart"></div><div><h2 id="mt">Pok\u00e9mon</h2><p class="meta">Could not load details. Check your connection and try again.</p><div class="acts"><button class="btn alt" data-a="close">Close</button></div></div>';$("sheet").querySelector(".x").focus()})}
+var SAPI="https://pokeapi.co/api/v2/pokemon-species/",CT=0,DL=null;
+function pnorm(v){return v.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[.'\u2019]/g,"").replace(/\s+/g,"-")}
+function pimgOf(d){var o=d.sprites&&d.sprites.other&&d.sprites.other["official-artwork"];return o&&o.front_default||pimg(d.id)}
+function evoStages(c){var st=[],lv=[c];while(lv.length){st.push(lv.map(function(x){var m=/species\/(\d+)/.exec(x.species.url||"");return{id:m?+m[1]:0,name:x.species.name}}));var nx=[];lv.forEach(function(x){nx=nx.concat(x.evolves_to||[])});lv=nx}return st}
+function evoLoad(sid,t){jget(SAPI+sid).then(function(sp){var u=sp.evolution_chain&&sp.evolution_chain.url;if(!u)throw 0;return jget(u)}).then(function(ch){if(t!==D.dt)return;var el=$("evo");if(!el)return;var st=evoStages(ch.chain);
+ if(st.length<2){el.innerHTML='<span class="meta">This Pok\u00e9mon does not evolve.</span>';return}
+ el.innerHTML=st.map(function(g){return'<div class="es">'+g.map(function(p){return'<button class="ev'+(p.id===sid?" on":"")+'" data-d="'+p.id+'"><img src="'+pimg(p.id)+'" alt="" loading="lazy" onerror="this.remove()"><span>'+esc(pname(p.name))+'</span></button>'}).join("")+'</div>'}).join('<span class="ea" aria-hidden="true">\u2192</span>')
+ }).catch(function(){if(t!==D.dt)return;var el=$("evo");if(el)el.innerHTML='<span class="meta">Could not load evolutions.</span>'})}
+function cmpOne(raw){return dexFind(pnorm(raw),raw).then(function(r){return jget(PAPI+"/"+r.items[0].id).then(function(d){return{d:d,note:!/^\d+$/.test(raw)&&d.name!==pnorm(raw)?"Using "+pname(d.name)+" for \u201c"+raw+"\u201d.":""}})}).catch(function(e){throw{status:e&&e.status,raw:raw}})}
+function cmpGo(){var r1=$("ca").value.trim(),r2=$("cb").value.trim();if(!r1){$("ca").focus();return}if(!r2){$("cb").focus();return}var t=++CT;$("cres").innerHTML='<p class="meta">Loading...</p>';
+ Promise.all([cmpOne(r1),cmpOne(r2)]).then(function(r){if(t!==CT)return;renderCmp(r[0].d,r[1].d,[r[0].note,r[1].note].filter(Boolean).join(" "))}).catch(function(e){if(t!==CT)return;$("cres").innerHTML='<p class="meta">'+(e&&e.status===404?"No Pok\u00e9mon found for \u201c"+esc(e.raw||"")+"\u201d.":"Could not load. Check your connection and try again.")+'</p>'})}
+function cmpFrom(d){closeM();$("ca").value=pname(d.name);$("cb").value="";$("cres").innerHTML="";$("cmpbox").scrollIntoView();$("cb").focus()}
+function cpHead(d,c){return'<div class="cp"><div class="art dxart" style="--h:'+(d.id*47%360)+'"><img src="'+esc(pimgOf(d))+'" alt="" onerror="this.remove()"></div><b><i style="background:'+c+'"></i>'+esc(pname(d.name))+'</b><small>'+esc((d.types||[]).map(function(t){return pname(t.type.name)}).join(", "))+'</small></div>'}
+function renderCmp(a,b,note){var names=["hp","attack","defense","special-attack","special-defense","speed"],lab={hp:"HP",attack:"Attack",defense:"Defense","special-attack":"Sp. Atk","special-defense":"Sp. Def",speed:"Speed"},KA="var(--accent)",KB="#4f8cff",ta=0,tb=0;
+ function g(d,n){var x=(d.stats||[]).filter(function(s){return s.stat.name===n})[0];return x?x.base_stat:0}
+ function row(l,va,vb){var t=va+vb,pc=t?va/t*100:50;return'<div class="cr"><span class="'+(va>vb?"w":"")+'">'+va+'</span><small>'+l+'</small><span class="z '+(vb>va?"wb":"")+'">'+vb+'</span><div class="tw"><i style="width:'+pc+'%"></i></div></div>'}
+ var h=names.map(function(n){var va=g(a,n),vb=g(b,n);ta+=va;tb+=vb;return row(lab[n],va,vb)}).join("");
+ h+=row("Total",ta,tb)+row("Height (m)",a.height/10,b.height/10)+row("Weight (kg)",a.weight/10,b.weight/10);
+ var win=ta===tb?"It is a tie on base stat total.":esc(pname(ta>tb?a.name:b.name))+" has the higher base stat total ("+Math.max(ta,tb)+" vs "+Math.min(ta,tb)+").";
+ $("cres").innerHTML=(note?'<p class="note">'+esc(note)+'</p>':"")+'<div class="cmpv">'+cpHead(a,KA)+cpHead(b,KB)+'</div><p class="win"><b>'+win+'</b></p>'+h}
+function cmpCancel(){++CT;$("ca").value="";$("cb").value="";$("cres").innerHTML=""}
+$("cgo").onclick=cmpGo;$("ccl").onclick=cmpCancel;$("cmpbox").onkeydown=function(e){if(e.key==="Enter"&&e.target.tagName==="INPUT")cmpGo();else if(e.key==="Escape")cmpCancel()};
+$("dxb").onclick=function(){setDex(!DX)};
+$("dgo").onclick=dexSearch;
+$("dq").onkeydown=function(e){if(e.key==="Enter")dexSearch()};
+$("dq").oninput=function(){if(!this.value.trim()&&D.q)dexSearch()};
+$("dmore").onclick=function(){dexLoad(true)};
+$("dgrid").addEventListener("error",imgFb,true);$("sheet").addEventListener("error",imgFb,true);
+$("dgrid").onclick=function(e){var b=e.target.closest("button");if(!b)return;if(b.dataset.d)openD(+b.dataset.d);else if(b.dataset.a==="dretry")dexLoad()};
+progUpdate();wlLabel();applyPrefs();load();
+})();
+</script>
+</body></html>
